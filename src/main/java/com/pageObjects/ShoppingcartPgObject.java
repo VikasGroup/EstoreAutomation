@@ -3,6 +3,7 @@ package com.pageObjects;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 import com.steps.estore_steps;
 
@@ -19,7 +20,52 @@ public class ShoppingcartPgObject {
  public WebElement check_btn = driver.findElement(By.xpath(".//*[@id='cmdConfirm']"));
  public WebElement rpp_text = driver.findElement(By.xpath(".//*[@id='pnlAutoShip']/span/label"));
  
- 
+
+ public String getProdName(int i){
+	 i=i+1;
+	 WebElement product = driver.findElement(By.id("dlProductCategoryContainer_ctl01_dgProductCategory_ctl0"+i+"_lblProdName"));
+	 return product.getText();
+ }
+ public String getRPP(int i){
+	 i=i+1;
+	 WebElement rppf = (driver.findElement(By.id("dlProductCategoryContainer_ctl01_dgProductCategory_ctl0"+i+"_ddlRepeatProduct")));
+	 return rppf.getText();
+ }
+ public String getQTY(int i){
+	 i=i+1;
+	 WebElement qty = (driver.findElement(By.id("dlProductCategoryContainer_ctl01_dgProductCategory_ctl0"+i+"_tbQuantity")));
+	 return qty.getText();
+ }
+ public String getPrice(int i){
+	 i=i+1;
+	 WebElement price = (driver.findElement(By.id("dlProductCategoryContainer_ctl01_dgProductCategory_ctl0"+i+"_lblPrice")));
+	 return price.getText();
+ }
+ public String getBV(int i){
+	 i=i+1;
+	 WebElement bv = (driver.findElement(By.id("dlProductCategoryContainer_ctl01_dgProductCategory_ctl0"+i+"_lblCUV")));
+	 return bv.getText();
+ }
+ public String getRSP(int i){
+	 i=i+1;
+	 WebElement rsp = (driver.findElement(By.id("dlProductCategoryContainer_ctl01_dgProductCategory_ctl0"+i+"_lblDSP")));
+	 return rsp.getText();
+ }
+ public void selectRPP(int i,String value){
+	 i=i+1;
+	 Select rppf = new Select(driver.findElement(By.id("dlProductCategoryContainer_ctl01_dgProductCategory_ctl0"+i+"_ddlRepeatProduct")));
+	 rppf.selectByVisibleText(value);
+ }
+ public void selectQTY(int i,String value) throws InterruptedException{
+	 i=i+1;
+	 WebElement qty = (driver.findElement(By.id("dlProductCategoryContainer_ctl01_dgProductCategory_ctl0"+i+"_tbQuantity")));
+	 qty.clear();
+	qty.sendKeys(value);
+	WebElement price = (driver.findElement(By.id("dlProductCategoryContainer_ctl01_dgProductCategory_ctl0"+i+"_lblPrice")));
+	 price.click();
+
+	Thread.sleep(5000);
+	 }
  public void enterDonation(String value){
   donation_txt.sendKeys(value);
  }
@@ -43,5 +89,12 @@ public class ShoppingcartPgObject {
  }
  public void clickCheck(){
   check_btn.click();
+ }
+ public String validateChkBtn(){
+	 if(check_btn.isEnabled()){
+		 return "true";
+	 }else{
+		 return "false";
+	 }
  }
 }

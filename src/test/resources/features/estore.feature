@@ -54,6 +54,28 @@ Examples:
 |Product Name|HomePure 7 in 1 Replacement Filter Cartridge|true|USD 76.00|BV 10|RSP 50|USD 14.00|false|
 |Product Name|OLE Olive Leaf Extract 500ml x 2 + OLE Olive Leaf Extract 100ML x 4|true|USD 135.00|BV 20|RSP 150|USD 24.00|true|
 
+@Reg
+Scenario Outline: SLA_012
+Given user directs to the Shopping cart page 
+When user select the preferred RPP frequency "<item>" , "<rpp>"
+And enter the qty for each product "<item>" , "<qty>"
+Then verify the BV "<item>" , "<bv>" , "<qty>"
+And verify RSP "<item>" , "<rsp>" , "<qty>"
+And verify Price change "<item>" , "<price>" , "<qty>"
+Examples:
+|item|rpp|prodName|qty|price|bv|rsp|
+|1|+ RPP Every Month|OLE Olive Leaf Extract 500ml x 2 + OLE Olive Leaf Extract 100ML x 4|2|135|20|150|
 
-
-
+@Reg
+Scenario Outline: SLA_017
+Given user directs to the shopping cart page 
+And validate Checkout button
+When User enter the donation "<amount>" 
+And check on Rythem donation 
+And click on link RYTHM FOUNDATION
+Then agree to T&C
+And click on Checkout button
+And click on Confirm button
+Examples:
+|amount|
+|5|
